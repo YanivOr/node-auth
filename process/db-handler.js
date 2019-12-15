@@ -9,6 +9,9 @@ const account = mongoose.model('account', new Schema({
   password: String,
   phone: String,
   email: String,
+  roles: Array,
+	enabledActions: Array,
+	disabledActions: Array,
 }));
 
 const login = async (email, password) => {
