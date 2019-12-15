@@ -1,7 +1,7 @@
 'use strict';
 
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 const { login } = require('../process/db-handler');
 const { sign } = require('../process/jwt-handler');
