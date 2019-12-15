@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const privateKEY  = fs.readFileSync(process.env.PRIVATE_KEY, 'utf8');
 
-const issuer  = process.env.IISUSER;
+const issuer  = process.env.ISSUER;
 const subject  = process.env.SUBJECT;
 const audience  = process.env.AUDIENCE;
 const expiresIn = process.env.EXPIRESIN;
