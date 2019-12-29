@@ -34,17 +34,18 @@ router.post('/login', async (req, res) => {
       redirect: redirectUrl
     });
   } else {
-    res.json({status: 'error', data: 'login-failed'});
+    res.status(500).json({status: 'error', data: 'login-failed'});
   }
 });
 
 router.get('/verify', ({ headers: { authorization }}, res) => {
   const token = authorization.slice(7, authorization.length); // Remove Bearer from string
   const results = verify(token)
+
   if (results) {
     res.json({status: 'success'});
   } else {
-    res.json({status: 'error', data: 'verification-failed'});
+    res.status(500).json({status: 'error', data: 'verification-failed'});
   }
 });
 
