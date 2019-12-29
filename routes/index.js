@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const { login } = require('../process/db-handler');
-const { sign } = require('../process/jwt-handler');
+const { sign, verify } = require('../process/jwt-handler');
 const { manageRoles } = require('../process/roles-handler');
 
 router.post('/login', async (req, res) => {
@@ -28,13 +28,23 @@ router.post('/login', async (req, res) => {
       break;
   }
 
-  if(loginResults) {
+  if (loginResults && token) {
     res.json({
+      status: 'success',
       redirect: redirectUrl
     });
-  }
-  else {
+  } else {
     res.json({status: 'error', data: 'login-failed'});
+  }
+});
+
+router.get('/verify', ({ headers: { authorization }}, res) => {
+  const token = authorization.slice(7, authorization.length); // Remove Bearer from string
+  const results = verify(token)
+  if (results) {
+    res.json({status: 'success'});
+  } else {
+    res.json({status: 'error', data: 'verification-failed'});
   }
 });
 
